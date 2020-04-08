@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<flow name="mf-enter-order-implementation" doc:id="8451f501-040d-4da5-9aff-1a8e802cd8b1" >
+		<logger level="INFO" doc:name="mf-enter-order-implementation flow started" doc:id="42764828-38c4-4477-ae31-feea398d795d" message="mf-enter-order-implementation flow started"/>
+		<ee:transform doc:id="db3ac12c-c936-4acd-92be-3a1cb19afbe0">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns soap http://schemas.xmlsoap.org/soap/envelope
+---
+{
+    body: {
+        soap#Fault: {
+            faultcode: "soap:Server",
+            faultstring: "Operation [EnterOrder_v5:\soapkit-config] not implemented"
+        }
+    } write "application/xml"
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+		<logger level="INFO" doc:name="mf-enter-order-implementation flow ended" doc:id="c249ab1b-a86d-4f3b-9275-d08c46d1bfbd" message="mf-enter-order-implementation flow ended"/>
+	</flow>
+	<flow name="mf-get-quote-implementation" doc:id="0f54b91a-6664-427e-8cf7-e21bd01057e7" >
+		<logger level="INFO" doc:name="mf-get-quote-implementation flow started" doc:id="cca8a894-4335-46d6-afda-747dcc52adf1" message="mf-get-quote-implementation flow started"/>
+		<ee:transform doc:id="75ffda5c-9a67-43d4-9584-e5769ac0afc9">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+		<set-payload value='#[&lt;GetQuote_v3Response xmlns="http://WebService.Vendor.com"&gt;
+&lt;GetQuote_v3Result&gt;
+&lt;QuoteNumber&gt;int&lt;/QuoteNumber&gt;
+&lt;QuoteSubtotal&gt;decimal&lt;/QuoteSubtotal&gt;
+&lt;CarrierCode&gt;string&lt;/CarrierCode&gt;
+&lt;SvcSaturday&gt;string&lt;/SvcSaturday&gt;
+&lt;SvcInsurance&gt;string&lt;/SvcInsurance&gt;
+&lt;SvcHoldAtLoc&gt;string&lt;/SvcHoldAtLoc&gt;
+&lt;SvcInside&gt;string&lt;/SvcInside&gt;
+&lt;SvcLiftgate&gt;string&lt;/SvcLiftgate&gt;
+&lt;SvcPod&gt;string&lt;/SvcPod&gt;
+ 
+&lt;SvcPodAdult&gt;string&lt;/SvcPodAdult&gt;
+&lt;freightType&gt;string&lt;/freightType&gt;
+&lt;freightAccountNo&gt;string&lt;/freightAccountNo&gt;
+&lt;Freight&gt;decimal&lt;/Freight&gt;
+&lt;QuoteTotal&gt;decimal&lt;/QuoteTotal&gt;
+&lt;OrderedLines&gt;
+&lt;OrderedLineV2&gt;
+&lt;LineNumber&gt;int&lt;/LineNumber&gt;
+&lt;PartNumber&gt;string&lt;/PartNumber&gt;
+&lt;Description&gt;string&lt;/Description&gt;
+&lt;QuantityOrdered&gt;int&lt;/QuantityOrdered&gt;
+&lt;QuantityAvailable&gt;int&lt;/QuantityAvailable&gt;
+&lt;SPFlag&gt;string&lt;/SPFlag&gt;
+&lt;UOM&gt;string&lt;/UOM&gt;
+&lt;PartMessage&gt;string&lt;/PartMessage&gt;
+&lt;UnitPrice&gt;decimal&lt;/UnitPrice&gt;
+&lt;ExtendedPrice&gt;decimal&lt;/ExtendedPrice&gt;
+&lt;/OrderedLineV2&gt;
+&lt;OrderedLineV2&gt;
+&lt;LineNumber&gt;int&lt;/LineNumber&gt;
+&lt;PartNumber&gt;string&lt;/PartNumber&gt;
+&lt;Description&gt;string&lt;/Description&gt;
+&lt;QuantityOrdered&gt;int&lt;/QuantityOrdered&gt;
+&lt;QuantityAvailable&gt;int&lt;/QuantityAvailable&gt;
+&lt;SPFlag&gt;string&lt;/SPFlag&gt;
+&lt;UOM&gt;string&lt;/UOM&gt;
+&lt;PartMessage&gt;string&lt;/PartMessage&gt;
+&lt;UnitPrice&gt;decimal&lt;/UnitPrice&gt;
+&lt;ExtendedPrice&gt;decimal&lt;/ExtendedPrice&gt;
+&lt;/OrderedLineV2&gt;
+&lt;/OrderedLines&gt;
+&lt;Error&gt;
+&lt;ErrorNumber&gt;int&lt;/ErrorNumber&gt;
+&lt;ErrorDescription&gt;string&lt;/ErrorDescription&gt;
+&lt;/Error&gt;
+&lt;/GetQuote_v3Result&gt;
+&lt;/GetQuote_v3Response&gt;]' doc:name="Set Payload" doc:id="f4fd4dec-f2eb-4e33-9bd7-1cb97b4d790b" mimeType="application/xml"/>
+		<logger level="INFO" doc:name="mf-get-quote-implementation flow ended" doc:id="0d97ab03-2f0e-48a9-9260-ca3a88344a10" message="mf-get-quote-implementation flow ended"/>
+	</flow>
+	<flow name="mf-get-advance-ship-notice-implementation" doc:id="d1a720db-e2ea-495f-aa7f-21516a3c945f" >
+		<logger level="INFO" doc:name="mf-get-advance-ship-notice-implementation flow started" doc:id="0a0e8c82-8d2c-4ed8-b079-54bfce61415d" message="mf-get-advance-ship-notice-implementation flow started"/>
+		<ee:transform doc:id="5f818fc8-9c8e-473b-be52-4c7289e9287c">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+ns soap http://schemas.xmlsoap.org/soap/envelope
+---
+{
+    body: {
+        soap#Fault: {
+            faultcode: "soap:Server",
+            faultstring: "Operation [AdvanceShipNoticeGet_v2:\soapkit-config] not implemented"
+        }
+    } write "application/xml"
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+		<logger level="INFO" doc:name="mf-get-advance-ship-notice-implementation flow ended" doc:id="67f2ab1e-4b86-4f6b-bece-f6464f18f9e8" message="mf-get-advance-ship-notice-implementation ended"/>
+	</flow>
+</mule>
